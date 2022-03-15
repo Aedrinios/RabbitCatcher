@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"C:\\Users\\cleme\\Documents\\ESGI\\5A\\UE4\\TwinStickCPP\\TwinStickCPP\\Source\\TwinStickCPP\\TwinStickCPP.Build.cs",
+		"C:\\Users\\cleme\\Documents\\ESGI\\5A\\UE4\\TwinStickCPP\\TwinStickCPP\\Source\\TwinStickCPP.Target.cs",
+		"C:\\Users\\cleme\\Documents\\ESGI\\5A\\UE4\\TwinStickCPP\\TwinStickCPP\\Source\\TwinStickCPPEditor.Target.cs"
+	],
+	"EngineVersion": "4.27.2"
+}

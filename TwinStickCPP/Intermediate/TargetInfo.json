@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "TwinStickCPP",
+			"Path": "C:\\Users\\cleme\\Documents\\ESGI\\5A\\UE4\\TwinStickCPP\\TwinStickCPP\\Source\\TwinStickCPP.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "TwinStickCPPEditor",
+			"Path": "C:\\Users\\cleme\\Documents\\ESGI\\5A\\UE4\\TwinStickCPP\\TwinStickCPP\\Source\\TwinStickCPPEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
