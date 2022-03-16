@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RabbitMaterialsSelectorComponent.h"
 #include "GameFramework/Pawn.h"
 #include "RabbitPawn.generated.h"
 

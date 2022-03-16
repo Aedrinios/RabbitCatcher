@@ -10,12 +10,17 @@
 // Sets default values
 ARabbitPawn::ARabbitPawn()
 {
+	//Begin : Add Mesh
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> BunnyMesh(TEXT("/Game/Meshes/Bunny.Bunny"));
 	BunnyMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BunnyMesh"));
 	RootComponent = BunnyMeshComponent;
 	BunnyMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	BunnyMeshComponent->SetStaticMesh(BunnyMesh.Object);
 	PrimaryActorTick.bCanEverTick = true;
+	//End : Add Mesh
+	//Begin : Add RabbitComponent
+	// static ConstructorHelpers::FObjectFinder<URabbitComponent> rabbitComponent(TEXT("/Classes_Game/RabbitCatcher/RabbitComponent"));
+	//End : Add RabbitComponent
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +42,8 @@ void ARabbitPawn::Tick(float DeltaSeconds)
 	FVector Movement = FVector(0, 0, 0);
 	// Calculate  movement
 	URabbitComponent* rabbitComponent = this->FindComponentByClass<URabbitComponent>();
+	URabbitMaterialsSelectorComponent* rmsc = this->FindComponentByClass<URabbitMaterialsSelectorComponent>();
+
 	FVector MoveDirection;
 
 	if (rabbitComponent->GetRunAway())
@@ -45,20 +52,23 @@ void ARabbitPawn::Tick(float DeltaSeconds)
 		MoveDirection.Z = 0;
 		if (this->currentStamina > 0 && refilledStamina)
 		{
+			rmsc->SetState(RabbitState::Run);
 			currentStamina = FMath::Clamp(currentStamina, 0.0f, currentStamina - DeltaSeconds);
 			Movement = MoveDirection * RunSpeed * DeltaSeconds;
 		}
 		else
 		{
+			rmsc->SetState(RabbitState::Tired);
 			refilledStamina = false;
 			Movement = MoveDirection * MoveSpeed * DeltaSeconds;
 		}
 	}
 	else
 	{
+		rmsc->SetState(RabbitState::Wait);
 		Movement = FVector(0, 0, 0);
 		currentStamina = FMath::Clamp(currentStamina, currentStamina + DeltaSeconds, StaminaMax);
-		if(currentStamina >= StaminaMax)
+		if (currentStamina >= StaminaMax)
 		{
 			refilledStamina = true;
 		}

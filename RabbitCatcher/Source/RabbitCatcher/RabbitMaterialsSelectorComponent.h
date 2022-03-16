@@ -21,7 +21,6 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	float currentTime = 0;
 	bool mat1;
 	
 
@@ -32,7 +31,8 @@ public:
 	RabbitState CurrentState = RabbitState::Wait;
 	UPROPERTY(EditAnywhere)
 	float blinkSecond = 0.5f;
-
+	UPROPERTY(EditAnywhere)
+	float currentTime = 0;
 	UPROPERTY(EditAnywhere, Category="Materials")
 	UMaterialInterface* DefaultMaterial;
 	UPROPERTY(EditAnywhere, Category="Materials")

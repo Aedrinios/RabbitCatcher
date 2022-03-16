@@ -13,7 +13,7 @@ URabbitMaterialsSelectorComponent::URabbitMaterialsSelectorComponent()
 	// ...
 }
 
-void URabbitMaterialsSelectorComponent::SetState(const RabbitState state)
+void URabbitMaterialsSelectorComponent::SetState(RabbitState state)
 {
 	this->CurrentState = state;	
 }
@@ -41,7 +41,10 @@ void URabbitMaterialsSelectorComponent::TickComponent(float DeltaTime, ELevelTic
 		case RabbitState::Tired:
 			currentTime += DeltaTime;
 			if(currentTime > blinkSecond)
+			{
 				mat1 = !mat1;
+				currentTime =0;
+			}
 			if(mat1)
 				mat = TiredMaterial1;
 			else
