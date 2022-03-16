@@ -9,7 +9,7 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class RABBITCATCHER_API URabbitMaterialsSelectorComponent : public UActorComponent
+class RABBITCATCHER_API URabbitMaterialsSelectorComponent : public USceneComponent
 {
 	GENERATED_BODY()
 
@@ -34,13 +34,13 @@ public:
 	UPROPERTY(EditAnywhere)
 	float currentTime = 0;
 	UPROPERTY(EditAnywhere, Category="Materials")
-	UMaterialInterface* DefaultMaterial;
+	UMaterial* DefaultMaterial;
 	UPROPERTY(EditAnywhere, Category="Materials")
-	UMaterialInterface* RunAwayMaterial;
+	UMaterial* RunAwayMaterial;
 	UPROPERTY(EditAnywhere, Category="Materials")
-	UMaterialInterface* TiredMaterial1;
+	UMaterial* TiredMaterial1;
 	UPROPERTY(EditAnywhere, Category="Materials")
-	UMaterialInterface* TiredMaterial2;
+	UMaterial* TiredMaterial2;
 
 		
 };

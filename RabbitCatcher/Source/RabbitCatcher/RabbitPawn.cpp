@@ -10,17 +10,29 @@
 // Sets default values
 ARabbitPawn::ARabbitPawn()
 {
+	StaminaMax = 10;
+	MoveSpeed  = 500;
+	RunSpeed = 1000;
+	
 	//Begin : Add Mesh
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> BunnyMesh(TEXT("/Game/Meshes/Bunny.Bunny"));
-	BunnyMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BunnyMesh"));
-	RootComponent = BunnyMeshComponent;
-	BunnyMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-	BunnyMeshComponent->SetStaticMesh(BunnyMesh.Object);
-	PrimaryActorTick.bCanEverTick = true;
+	meshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BunnyMesh"));
+	RootComponent = meshComponent;
+	meshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
+	meshComponent->SetStaticMesh(BunnyMesh.Object);
+
 	//End : Add Mesh
 	//Begin : Add RabbitComponent
-	// static ConstructorHelpers::FObjectFinder<URabbitComponent> rabbitComponent(TEXT("/Classes_Game/RabbitCatcher/RabbitComponent"));
+	rabbitComponent = CreateDefaultSubobject<URabbitComponent>(TEXT("RabbitComponent"));
+	rabbitComponent->SetupAttachment(RootComponent);
 	//End : Add RabbitComponent
+
+	//Begin : Add Material Selector Component
+	materialComponent = CreateDefaultSubobject<URabbitMaterialsSelectorComponent>(TEXT("RabbitMaterial"));
+	materialComponent->SetupAttachment(RootComponent);
+	//End : Add Material Selector Component
+
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
@@ -41,8 +53,7 @@ void ARabbitPawn::Tick(float DeltaSeconds)
 	// Clamp max size so that (X=1, Y=1) doesn't cause faster movement in diagonal directions
 	FVector Movement = FVector(0, 0, 0);
 	// Calculate  movement
-	URabbitComponent* rabbitComponent = this->FindComponentByClass<URabbitComponent>();
-	URabbitMaterialsSelectorComponent* rmsc = this->FindComponentByClass<URabbitMaterialsSelectorComponent>();
+	materialComponent = this->FindComponentByClass<URabbitMaterialsSelectorComponent>();
 
 	FVector MoveDirection;
 
@@ -52,20 +63,20 @@ void ARabbitPawn::Tick(float DeltaSeconds)
 		MoveDirection.Z = 0;
 		if (this->currentStamina > 0 && refilledStamina)
 		{
-			rmsc->SetState(RabbitState::Run);
+			materialComponent->SetState(RabbitState::Run);
 			currentStamina = FMath::Clamp(currentStamina, 0.0f, currentStamina - DeltaSeconds);
 			Movement = MoveDirection * RunSpeed * DeltaSeconds;
 		}
 		else
 		{
-			rmsc->SetState(RabbitState::Tired);
+			materialComponent->SetState(RabbitState::Tired);
 			refilledStamina = false;
 			Movement = MoveDirection * MoveSpeed * DeltaSeconds;
 		}
 	}
 	else
 	{
-		rmsc->SetState(RabbitState::Wait);
+		materialComponent->SetState(RabbitState::Wait);
 		Movement = FVector(0, 0, 0);
 		currentStamina = FMath::Clamp(currentStamina, currentStamina + DeltaSeconds, StaminaMax);
 		if (currentStamina >= StaminaMax)

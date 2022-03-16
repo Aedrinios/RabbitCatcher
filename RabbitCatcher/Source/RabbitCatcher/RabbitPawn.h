@@ -13,7 +13,11 @@ class RABBITCATCHER_API ARabbitPawn : public APawn
 	GENERATED_BODY()
 	/* The mesh component */
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class UStaticMeshComponent* BunnyMeshComponent;
+	class UStaticMeshComponent* meshComponent;
+	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class URabbitComponent* rabbitComponent;
+	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class URabbitMaterialsSelectorComponent* materialComponent;
 
 public:
 	/* The speed our ship moves around the level */

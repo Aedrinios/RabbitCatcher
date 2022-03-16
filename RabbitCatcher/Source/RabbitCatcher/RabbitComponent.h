@@ -8,7 +8,7 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class RABBITCATCHER_API URabbitComponent : public UActorComponent
+class RABBITCATCHER_API URabbitComponent : public USceneComponent
 {
 	GENERATED_BODY()
 
