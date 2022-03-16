@@ -2,10 +2,8 @@
 
 #pragma once
 
-#include "GameFramework/PlayerController.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "GameFramework/Actor.h"
 #include "RabbitComponent.generated.h"
 
 
