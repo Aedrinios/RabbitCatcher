@@ -22,6 +22,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	float runSince = 0;
+	void CheckPlayerDistance();
 
 
 public:	
@@ -29,13 +30,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(EditAnywhere)
+		float distanceFromPlayer = 0;
+	UPROPERTY(EditAnywhere)
+		float outStaminaSpeedFactor= 0.5;
+	UPROPERTY(EditAnywhere)
+		float distanceDetectPlayer = 400;
+	UPROPERTY(EditAnywhere)
 		float maxSpeed = 10;
-
 	UPROPERTY(EditAnywhere)
-		float outStaminaFactorSpeed= 0.5;
-	UPROPERTY(EditAnywhere)
-		float minDistanceToRunAwayFromPlayer = 200;
-	UPROPERTY(EditAnywhere)
-		float staminaTime = 10;
+		float staminaTime = 5;
 
 };

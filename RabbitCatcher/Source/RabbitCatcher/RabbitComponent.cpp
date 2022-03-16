@@ -29,18 +29,39 @@ void URabbitComponent::BeginPlay()
 void URabbitComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	FVector CharacterLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
-	FVector vOrigin = this->GetOwner()->GetTransform().GetTranslation();
-	//FVector vDestinaton = this->player->GetOwner()->GetTransform().GetTranslation();
-	if (FVector::Dist(vOrigin, CharacterLocation) <= this->minDistanceToRunAwayFromPlayer) {
-		DrawDebugLine(GetWorld(), vOrigin, CharacterLocation, FColor::Red);
-	}
-	else {
-		DrawDebugLine(GetWorld(), vOrigin, CharacterLocation, FColor::Green);
-	}
-
+	this->CheckPlayerDistance();
 
 	// ...
 }
 
+void URabbitComponent::CheckPlayerDistance() {
+	APlayerController* pc = GetWorld()->GetFirstPlayerController();
+	//Get location of playerpawn
+	FVector playerLocation = pc->GetPawn()->GetActorLocation();
+	FVector PlayerLocationNormalize = playerLocation;
+	PlayerLocationNormalize.Normalize();
+	//Get selft location
+	FVector selfLocation = this->GetOwner()->GetTransform().GetTranslation();
+	this->distanceFromPlayer = FVector::Dist(selfLocation, playerLocation);
+	if (this->distanceFromPlayer <= this->distanceDetectPlayer)
+	{
+		FHitResult OutHit;
+
+		FCollisionQueryParams CollisionParms;
+		CollisionParms.AddIgnoredActor(this->GetOwner());
+		bool isHit = GetWorld()->LineTraceSingleByChannel(OutHit, selfLocation, PlayerLocationNormalize, ECC_Visibility, CollisionParms);
+		if (isHit && OutHit.GetActor()->GetActorGuid() == pc->GetActorGuid())
+		{
+			DrawDebugLine(GetWorld(), selfLocation, playerLocation, FColor::Red);
+		}
+		else
+		{
+			DrawDebugLine(GetWorld(), selfLocation, playerLocation, FColor::Green);
+		}
+	}
+	else
+	{
+		//DrawDebugLine(GetWorld(), selfLocation, playerLocation, FColor::Blue);
+	}
+}
