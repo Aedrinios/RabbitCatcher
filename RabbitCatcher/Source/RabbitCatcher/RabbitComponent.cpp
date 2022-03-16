@@ -81,6 +81,7 @@ void URabbitComponent::CheckPlayerDistance()
 	}
 	else
 	{
+		runAway = false;
 		//DrawDebugLine(GetWorld(), selfLocation, playerLocation, FColor::Blue);
 	}
 }
