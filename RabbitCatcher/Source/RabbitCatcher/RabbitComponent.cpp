@@ -20,9 +20,16 @@ bool URabbitComponent::GetRunAway()
 	return this->runAway;
 }
 
+FVector URabbitComponent::GetPlayerDirectionNormalize()
+{
+	FVector v = playerDirection;
+	v.Normalize();
+	return v;
+}
+
 
 // Called when the game starts
-void URabbitComponent::BeginPlay()
+void URabbitComponent::BeginPlay()	
 {
 	Super::BeginPlay();
 	// ...
@@ -45,10 +52,10 @@ void URabbitComponent::CheckPlayerDistance()
 	APlayerController* pc = GetWorld()->GetFirstPlayerController();
 	//Get location of playerpawn
 	FVector playerLocation = pc->GetPawn()->GetActorLocation();
-	FVector endOfRay = playerLocation;
 	//Get selft location
 	FVector selfLocation = this->GetOwner()->GetTransform().GetTranslation();
 	this->distanceFromPlayer = FVector::Dist(selfLocation, playerLocation);
+	this->playerDirection = selfLocation - playerLocation;
 	if (this->distanceFromPlayer <= this->distanceDetectPlayer)
 	{
 		FHitResult OutHit;

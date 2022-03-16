@@ -18,6 +18,7 @@ public:
 	// Sets default values for this component's properties
 	URabbitComponent();
 	bool GetRunAway();
+	FVector GetPlayerDirectionNormalize();
 
 protected:
 	// Called when the game starts
@@ -25,6 +26,7 @@ protected:
 	float runSince = 0;
 	void CheckPlayerDistance();
 	bool runAway = false;
+	FVector playerDirection;
 
 public:	
 	// Called every frame
