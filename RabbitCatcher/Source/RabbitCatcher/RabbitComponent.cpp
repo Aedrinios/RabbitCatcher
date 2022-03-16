@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "RabbitComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
-#include "RabbitComponent.h"
 #include "Math/Vector.h"
 
 // Sets default values for this component's properties
