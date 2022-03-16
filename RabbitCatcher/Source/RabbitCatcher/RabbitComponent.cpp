@@ -15,18 +15,23 @@ URabbitComponent::URabbitComponent()
 	// ...
 }
 
+bool URabbitComponent::GetRunAway()
+{
+	return this->runAway;
+}
+
 
 // Called when the game starts
 void URabbitComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	// ...
-
 }
 
 
 // Called every frame
-void URabbitComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void URabbitComponent::TickComponent(float DeltaTime, ELevelTick TickType,
+                                     FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
@@ -35,12 +40,12 @@ void URabbitComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
-void URabbitComponent::CheckPlayerDistance() {
+void URabbitComponent::CheckPlayerDistance()
+{
 	APlayerController* pc = GetWorld()->GetFirstPlayerController();
 	//Get location of playerpawn
 	FVector playerLocation = pc->GetPawn()->GetActorLocation();
-	FVector PlayerLocationNormalize = playerLocation;
-	PlayerLocationNormalize.Normalize();
+	FVector endOfRay = playerLocation;
 	//Get selft location
 	FVector selfLocation = this->GetOwner()->GetTransform().GetTranslation();
 	this->distanceFromPlayer = FVector::Dist(selfLocation, playerLocation);
@@ -50,8 +55,15 @@ void URabbitComponent::CheckPlayerDistance() {
 
 		FCollisionQueryParams CollisionParms;
 		CollisionParms.AddIgnoredActor(this->GetOwner());
-		bool isHit = GetWorld()->LineTraceSingleByChannel(OutHit, selfLocation, PlayerLocationNormalize, ECC_Visibility, CollisionParms);
-		if (isHit && OutHit.GetActor()->GetActorGuid() == pc->GetActorGuid())
+		
+		bool isHit = GetWorld()->LineTraceSingleByChannel(OutHit,
+														selfLocation,
+														playerLocation,
+														ECC_Camera,
+														CollisionParms,
+														FCollisionResponseParams::DefaultResponseParam);
+		this->runAway = isHit && OutHit.GetActor()->Tags.Contains(TEXT("Player")); 
+		if (runAway)
 		{
 			DrawDebugLine(GetWorld(), selfLocation, playerLocation, FColor::Red);
 		}

@@ -17,13 +17,14 @@ class RABBITCATCHER_API URabbitComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	URabbitComponent();
+	bool GetRunAway();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	float runSince = 0;
 	void CheckPlayerDistance();
-
+	bool runAway = false;
 
 public:	
 	// Called every frame
@@ -32,12 +33,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		float distanceFromPlayer = 0;
 	UPROPERTY(EditAnywhere)
-		float outStaminaSpeedFactor= 0.5;
-	UPROPERTY(EditAnywhere)
 		float distanceDetectPlayer = 400;
-	UPROPERTY(EditAnywhere)
-		float maxSpeed = 10;
-	UPROPERTY(EditAnywhere)
-		float staminaTime = 5;
 
 };
