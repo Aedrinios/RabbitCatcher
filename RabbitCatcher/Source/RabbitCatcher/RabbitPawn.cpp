@@ -10,10 +10,10 @@
 // Sets default values
 ARabbitPawn::ARabbitPawn()
 {
+	this->Tags.Add(TEXT("Rabbit"));
 	StaminaMax = 10;
-	MoveSpeed  = 500;
+	MoveSpeed = 500;
 	RunSpeed = 1000;
-	
 	//Begin : Add Mesh
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> BunnyMesh(TEXT("/Game/Meshes/Bunny.Bunny"));
 	meshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BunnyMesh"));
