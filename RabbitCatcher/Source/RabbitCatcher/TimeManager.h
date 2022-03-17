@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "TimeManager.generated.h"
@@ -26,5 +28,5 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	float ATimeManager::GetBestTime();
+	std::string GetBestTime();
 };
