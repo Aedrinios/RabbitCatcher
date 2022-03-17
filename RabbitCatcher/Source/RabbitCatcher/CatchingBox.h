@@ -17,7 +17,13 @@ protected:
 	virtual void BeginPlay();
 
 public:
+	UPROPERTY(Category = Gameplay, VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	int rabbitCatched;
+	int rabbitToCatch;
+
+
 	ACatchingBox();
 	UFUNCTION()
-		void Event(class AActor* overlappedActor, class AActor* otherActor);
+
+	void Event(class AActor* overlappedActor, class AActor* otherActor);
 };
