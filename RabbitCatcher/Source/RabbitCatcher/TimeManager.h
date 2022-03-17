@@ -28,5 +28,5 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	std::string GetBestTime();
+	static std::string GetBestTime();
 };
