@@ -39,7 +39,7 @@ void ATimeManager::Tick(float DeltaTime)
 	}	
 }
 
-float ATimeManager::GetBestTime()
+std::string ATimeManager::GetBestTime()
 {
-	return bestTime;
+	return "16.5";
 }
