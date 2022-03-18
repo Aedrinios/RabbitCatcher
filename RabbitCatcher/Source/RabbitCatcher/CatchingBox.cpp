@@ -6,6 +6,8 @@
 #include <string>
 
 #include "TimeManager.h"
+#include "Kismet/GameplayStatics.h"
+
 ACatchingBox::ACatchingBox()
 {
 	rabbitCatched = 0;
@@ -27,15 +29,18 @@ void ACatchingBox::Event(class AActor* overlappedActor, class AActor* otherActor
 		{
 			rabbitCatched++;
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(rabbitCatched));
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(rabbitToCatch));
 			if (rabbitCatched == rabbitToCatch)
 			{
-			
+				UGameplayStatics::OpenLevel(GetWorld(), "Menu");
+
 				UWorld* world = GetWorld();
 				for (TObjectIterator<ATimeManager> It; It; ++It)
 				{
 					ATimeManager* timer = *It;
 					if (timer->GetWorld() == world)
 					{
+						GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "SALUT LES POTES");
 						timer->win = true;
 					}
 				}

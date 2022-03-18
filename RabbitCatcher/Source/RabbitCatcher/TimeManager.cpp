@@ -4,6 +4,8 @@
 #include "TimeManager.h"
 #include <limits>
 
+#include "Kismet/GameplayStatics.h"
+
 float ATimeManager::bestTime = std::numeric_limits<float>::max();
 
 
@@ -35,6 +37,8 @@ void ATimeManager::Tick(float DeltaTime)
 		if(timeElapsed < bestTime)
 		{
 			ATimeManager::bestTime = timeElapsed;
+			UGameplayStatics::OpenLevel(GetWorld(), "Menu");
+
 		}
 	}	
 }
