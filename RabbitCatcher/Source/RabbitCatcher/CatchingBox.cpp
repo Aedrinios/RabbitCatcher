@@ -6,7 +6,6 @@
 #include <string>
 
 #include "TimeManager.h"
-
 ACatchingBox::ACatchingBox()
 {
 	rabbitCatched = 0;
@@ -27,7 +26,7 @@ void ACatchingBox::Event(class AActor* overlappedActor, class AActor* otherActor
 		if (otherActor->Tags.Contains(TEXT("Rabbit")))
 		{
 			rabbitCatched++;
-
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(rabbitCatched));
 			if (rabbitCatched == rabbitToCatch)
 			{
 			
