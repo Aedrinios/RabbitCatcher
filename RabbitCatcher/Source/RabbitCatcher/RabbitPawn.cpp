@@ -4,7 +4,6 @@
 #include "RabbitPawn.h"
 
 #include "RabbitComponent.h"
-#include "ThirdParty/openexr/Deploy/OpenEXR-2.3.0/OpenEXR/include/ImathFun.h"
 #include "Math/UnrealMathUtility.h"
 
 // Sets default values

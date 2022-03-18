@@ -34,7 +34,7 @@ void ACatchingBox::Event(class AActor* overlappedActor, class AActor* otherActor
 			{
 				UGameplayStatics::OpenLevel(GetWorld(), "Menu");
 
-				UWorld* world = GetWorld();
+				/*UWorld* world = GetWorld();
 				for (TObjectIterator<ATimeManager> It; It; ++It)
 				{
 					ATimeManager* timer = *It;
@@ -43,7 +43,7 @@ void ACatchingBox::Event(class AActor* overlappedActor, class AActor* otherActor
 						GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "SALUT LES POTES");
 						timer->win = true;
 					}
-				}
+				}*/
 			}
 			otherActor->Destroy();
 		}
